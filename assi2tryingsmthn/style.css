@@ -6,6 +6,16 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  background: #6563ff;
+
+}
 body{
   display: flex;
   align-items: center;
@@ -14,7 +24,7 @@ body{
   background: #6563FF;
 }
 .wrapper{
-  padding: 25px;
+  padding: 20px;
   border-radius: 10px;
   background: #F8F8F8;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -82,6 +92,7 @@ body{
 }
 .card.flip .back-view{
   transform: rotateY(0);
+  backface-visibility: hidden;
 }
 .card.flip .front-view{
   transform: rotateY(180deg);
@@ -112,3 +123,34 @@ body{
     max-width: 35px;
   }
 }
+
+.score-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.score-container p {
+  margin-right: 20px;
+  
+}
+
+#restartButton {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 200px;
+  transition: transform 0.3s ease;
+}
+
+#restartButton img {
+  width: 24px;
+  height: 24px;
+}
+
+#restartButton:hover {
+  transform: scale(1.1);
+}
+

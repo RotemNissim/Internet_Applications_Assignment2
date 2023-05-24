@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - youtube.com/codingnepal -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">  
-    <title>Memory Card Game | CodingNepal</title>
+    <title>Memory Card Game | Web Apps</title>
+    <link rel="icon" type="image/x-icon" href="images\icons8-question-mark-16.png">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
+  <header>
+    <div class="header">
+      <h1>Memory Cards Game</h1>
+      <h2>By Amit Zamir & Rotem Nissim</h2>
+    </div>
+  </header>
   <body>
+    <div class="game-wrapper">
     <div class="wrapper">
       <ul class="cards">
         <li class="card">
@@ -139,7 +146,13 @@
           </div>
         </li>
       </ul>
+      <div class="score-container">
+        <p>Pairs Collected: <span id="matchedCount">0</span></p>
+        <p><button id="restartButton"><img src="images/reload.png" alt="restart"/></button></p>
+      </div>
     </div>
+  </div>
+
 
     <script src="script.js"></script>
 

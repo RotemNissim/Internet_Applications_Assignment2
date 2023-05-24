@@ -1,4 +1,5 @@
 const cards = document.querySelectorAll(".card");
+const matchedCount = document.getElementById("matchedCount");
 
 let matched = 0;
 let cardOne, cardTwo;
@@ -21,9 +22,12 @@ function flipCard({target: clickedCard}) {
 function matchCards(img1, img2) {
     if(img1 === img2) {
         matched++;
+        matchedCount.textContent = matched;
         if(matched == 8) {
             setTimeout(() => {
-                return shuffleCard();
+                shuffleCard();
+                matched = 0;
+                matchedCount.textContent = matched;
             }, 1000);
         }
         cardOne.removeEventListener("click", flipCard);
@@ -62,4 +66,25 @@ shuffleCard();
     
 cards.forEach(card => {
     card.addEventListener("click", flipCard);
-});
+})
+
+const restartButton = document.getElementById("restartButton");
+restartButton.addEventListener("click", restartGame);
+
+function restartGame() {
+    disableDeck = true; // Disable card flipping during restart
+    // Add a delay before resetting the cards
+    setTimeout(() => {
+        cards.forEach((card) => {
+          card.classList.remove("flip");
+          card.addEventListener("click", flipCard);
+        });
+    
+        setTimeout(() => {
+          shuffleCard();
+          matched = 0;
+          matchedCount.textContent = matched;
+          disableDeck = false; // Enable card flipping after restart
+        }, 200); // Add a slight delay before shuffling the cards
+      }, 200); // Add a slight delay before resetting the cards
+};
