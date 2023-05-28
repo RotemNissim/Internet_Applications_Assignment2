@@ -141,7 +141,7 @@ body{
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 200px;
+  margin-left: 250px;
   transition: transform 0.3s ease;
 }
 
@@ -154,3 +154,8 @@ body{
   transform: scale(1.1);
 }
 
+#card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
