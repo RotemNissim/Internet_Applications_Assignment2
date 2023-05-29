@@ -14,21 +14,20 @@
     </div>
   </header>
   <body>
-    <div class="game-wrapper">
     <div class="wrapper">
       <div id="form-container" class="hidden">
         <form id="game-form">
           <label for="name">Your Name:</label>
           <input type="text" id="name" required>
           <label for="card-count">Number of Cards (max 30):</label>
-          <input type="number" id="card-count" min="1" max="30" required>
+          <input type="number" id="card-count" min="2" max="30" required>
           <button type="submit">Start Game</button>
         </form>
       </div>
       <div id="game-container" style="display: none;">
       <div id="game-info">
         <span id="matchedCount">0</span> Matched
-        <div id="timer">00:00</div>
+        <div id="game-time">00:00</div>
        <span><button id="restartButton">Restart</button></span>
       </div>
       <ul id="card-list" class="cards"></ul>
@@ -36,11 +35,6 @@
         <p>Congrats! You completed the game in <span id="game-time"></span>.</p>
       </div>
       </div>
-      <!-- <div class="score-container">
-        <p>Pairs Collected: <span id="matchedCount">0</span></p>
-        <p><button id="restartButton"><img src="images/reload.png" alt="restart"/></button></p>
-      </div>
-    </div> -->
   </div>
     <script src="script.js"></script>
   </body>

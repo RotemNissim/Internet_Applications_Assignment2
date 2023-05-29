@@ -171,7 +171,34 @@ let cardIcons = [
 
 gameForm.addEventListener("submit", startGame);
 
+let startTime;
+
 function startGame(event) {
+    // event.preventDefault();
+
+    // const name = nameInput.value;
+    // const cardCount = parseInt(cardCountInput.value);
+
+    // formContainer.style.display = "none";
+    // gameContainer.style.display = "block";
+
+    // generateCards(cardCount);
+    // shuffleCard();
+    // updateGameInfo();
+
+    // cards.forEach(card => {
+    //     card.addEventListener("click", flipCard);
+    // });
+
+    // restartButton.addEventListener("click", restartGame);
+
+    // // Start the game timer
+    // const startTime = new Date();
+    // setInterval(() => {
+    //     const currentTime = new Date();
+    //     const elapsedTime = Math.floor((currentTime - startTime) / 1000); // in seconds
+    //     updateGameTime(elapsedTime);
+    // }, 1000);
     event.preventDefault();
 
     const name = nameInput.value;
@@ -181,7 +208,7 @@ function startGame(event) {
     gameContainer.style.display = "block";
 
     generateCards(cardCount);
-    shuffleCard();
+    shuffleArray(cardIcons);
     updateGameInfo();
 
     cards.forEach(card => {
@@ -191,12 +218,20 @@ function startGame(event) {
     restartButton.addEventListener("click", restartGame);
 
     // Start the game timer
-    const startTime = new Date();
-    setInterval(() => {
-        const currentTime = new Date();
-        const elapsedTime = Math.floor((currentTime - startTime) / 1000); // in seconds
-        updateGameTime(elapsedTime);
-    }, 1000);
+    startTime = new Date();
+    setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    const currentTime = new Date();
+    const elapsedTime = Math.floor((currentTime - startTime) / 1000); // in seconds
+    updateGameTime(elapsedTime);
+}
+
+function updateGameTime(timeInSeconds) {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    gameTime.textContent = `${minutes} minutes and ${seconds} seconds.`;
 }
 
 function generateCards(cardCount) {
@@ -295,24 +330,45 @@ function endGame() {
     const minutes = Math.floor(totalTime / 60);
     const seconds = totalTime % 60;
     gameTime.textContent = `${minutes} minutes and ${seconds} seconds.`;
+    
 }
 
 function restartGame() {
-    disableDeck = true; // Disable card flipping during restart
-    matched = 0;
-    matchedCount.textContent = matched;
+    // disableDeck = true; // Disable card flipping during restart
+    // matched = 0;
+    // matchedCount.textContent = matched;
+
+    // setTimeout(() => {
+    //     cards.forEach(card => {
+    //         card.classList.remove("flip");
+    //         card.addEventListener("click", flipCard);
+    //     });
+
+    //     setTimeout(() => {
+    //         shuffleCard();
+    //         disableDeck = false; // Enable card flipping after restart
+    //     }, 200); // Add a slight delay before shuffling the cards
+    // }, 200); // Add a slight delay before resetting the cards
+    cards.forEach(card => {
+        card.classList.remove("flip");
+        card.removeEventListener("click", flipCard);
+    });
 
     setTimeout(() => {
+        shuffleArray(cardIcons);
+        generateCards(parseInt(cardCountInput.value));
         cards.forEach(card => {
-            card.classList.remove("flip");
             card.addEventListener("click", flipCard);
         });
+        disableDeck = false; // Enable card flipping after restart
+    }, 200); // Add a slight delay before shuffling the cards
 
-        setTimeout(() => {
-            shuffleCard();
-            disableDeck = false; // Enable card flipping after restart
-        }, 200); // Add a slight delay before shuffling the cards
-    }, 200); // Add a slight delay before resetting the cards
+    matched = 0;
+    matchedCount.textContent = matched;
+    gameContainer.style.display = "none";
+    gameOver.style.display = "none";
+    formContainer.style.display = "block";
+
 }
 
 function updateGameInfo() {
@@ -325,19 +381,48 @@ function updateGameTime(timeInSeconds) {
     gameTime.textContent = `${minutes} minutes and ${seconds} seconds.`;
 }
 
-function endGame() {
-    disableDeck = true; // Disable card flipping
-    clearInterval(timerInterval);
-    gameContainer.style.display = "none";
-    gameOver.style.display = "block";
-    const endTime = new Date();
-    const totalTime = Math.floor((endTime - startTime) / 1000); // in seconds
-    const minutes = Math.floor(totalTime / 60);
-    const seconds = totalTime % 60;
-    gameTime.textContent = `${minutes} minutes and ${seconds} seconds.`;
+// function endGame() {
+//     // disableDeck = true; // Disable card flipping
+//     // clearInterval(timerInterval);
+//     // gameContainer.style.display = "none";
+//     // gameOver.style.display = "block";
+//     // const endTime = new Date();
+//     // const totalTime = Math.floor((endTime - startTime) / 1000); // in seconds
+//     // const minutes = Math.floor(totalTime / 60);
+//     // const seconds = totalTime % 60;
+//     // gameTime.textContent = `${minutes} minutes and ${seconds} seconds.`;
   
-    const playerName = nameInput.value;
-    const message = `Congratulations, ${playerName}! You completed the game in ${minutes} minutes and ${seconds} seconds.`;
-    alert(message);
-}
+//     // const playerName = nameInput.value;
+//     // const message = `Congratulations, ${playerName}! You completed the game in ${minutes} minutes and ${seconds} seconds.`;
+//     // alert(message);
+    
+// //     disableDeck = true; // Disable card flipping
+// //     clearInterval(timerInterval);
+// //     const endTime = new Date();
+// //     const totalTime = Math.floor((endTime - startTime) / 1000); // in seconds
+// //     const minutes = Math.floor(totalTime / 60);
+// //     const seconds = totalTime % 60;
+// //     gameTime.textContent = `${minutes} minutes and ${seconds} seconds.`;
+
+// //     const playerName = nameInput.value;
+// //     const message = `Congratulations, ${playerName}! You completed the game in ${minutes} minutes and ${seconds} seconds.`;
+// //     gameOver.textContent = message;
+// //     gameContainer.style.display = "none";
+// //     gameOver.style.display = "block";
+
+// disableDeck = true; // Disable card flipping
+// clearInterval(timerInterval);
+// gameContainer.style.display = "none";
+// gameOver.style.display = "block";
+// const endTime = new Date();
+// const totalTime = Math.floor((endTime - startTime) / 1000); // in seconds
+// const minutes = Math.floor(totalTime / 60);
+// const seconds = totalTime % 60;
+// gameTime.textContent = `${minutes} minutes and ${seconds} seconds.`;
+
+// const playerName = nameInput.value;
+// const message = `Congratulations, ${playerName}! You completed the game in ${minutes} minutes and ${seconds} seconds.`;
+// gameOver.textContent = message; // Set the completion message
+// }
+
 
